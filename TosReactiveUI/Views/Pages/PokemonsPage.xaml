@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModels="clr-namespace:TosReactiveUI.ViewModels"
+             xmlns:ModelInterfaces="clr-namespace:TosReactiveUI.Models.Interfaces"
+             x:Class="TosReactiveUI.Views.Pages.PokemonsPage"
+             x:DataType="ViewModels:PokemonsViewModel"
+             BackgroundColor="{StaticResource Primary}"
+             Title="PokemonsPage">
+    <Grid
+        BackgroundColor="{StaticResource Primary}"
+        RowDefinitions="20, *, 20"
+        ColumnDefinitions="20, *, 20">
+        <CollectionView
+            ItemsSource="{Binding Pokemons}"
+            Grid.Row="1"
+            Grid.Column="1"
+            BackgroundColor="{StaticResource White}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Span="3" Orientation="Vertical"/>
+
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="ModelInterfaces:IPokemonEntity">
+                    <Grid RowDefinitions="100, Auto, Auto">
+                        <Image
+                            Source="{Binding FrontSprite}"/>
+                        <Label
+                            TextColor="Black"
+                            Grid.Row="1"
+                            Text="{Binding Id}"/>
+                        <Label
+                            TextColor="Black"
+                            FontAttributes="Bold"
+                            FontSize="17"
+                            Grid.Row="2"
+                            Text="{Binding Name}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
