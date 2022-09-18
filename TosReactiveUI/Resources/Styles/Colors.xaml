@@ -6,9 +6,14 @@
 
     <Color x:Key="Primary">#604CD3</Color>
     <Color x:Key="Secondary">#4D6762</Color>
-    <Color x:Key="Light">#F5F5F5</Color>
+    <Color x:Key="Light">#DEDEDE</Color>
     <Color x:Key="Grey">#919191</Color>
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
+    <Color x:Key="Red100">#941828</Color>
+    <Color x:Key="Red200">#CE1230</Color>
+    <Color x:Key="Green">#55AB62</Color>
+    <Color x:Key="DarkGreen">#24472A</Color>
+    <Color x:Key="Blue">#0ACDFF</Color>
 
 </ResourceDictionary>

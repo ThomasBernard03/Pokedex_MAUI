@@ -18,6 +18,7 @@ public class PokemonsViewModel : BaseViewModel
     public PokemonsViewModel(INavigationService navigationService, IPokemonService pokemonService) : base(navigationService)
     {
         _pokemonService = pokemonService;
+        Types = new ObservableCollection<string>(new List<string>() { "Any" });
 
         var searchFilter = this.WhenAnyValue(viewModel => viewModel.SearchBarText)
             .Select(searchBarText =>
@@ -37,16 +38,15 @@ public class PokemonsViewModel : BaseViewModel
                     return new Func<IPokemonEntity, bool>(pokemon => true);
             });
 
-        Types = new ObservableCollection<string>(new List<string>() { "Any" });
 
         _pokemonsCache
             .Connect()
             .Filter(searchFilter) // Apply the search bar filter
             .Filter(typeFilter) // Apply the type filter
             .SortBy(p => p.Id) // Sort all pokemons by Id
-            .Bind(out _pokemons)
-            .ObserveOn(RxApp.MainThreadScheduler)
-            .Subscribe();
+            .Bind(out _pokemons) // Bind on our private prop
+            .ObserveOn(RxApp.MainThreadScheduler) // Force the execution on the main thread
+            .Subscribe(); // Subscribe to updates
     }
 
     #region Life cycle
@@ -59,8 +59,6 @@ public class PokemonsViewModel : BaseViewModel
 
         Types.Add(pokemons.SelectMany(p => p.Types).Distinct());
         _pokemonsCache.AddOrUpdate(pokemons);
-
-        //var x = JsonConvert.SerializeObject(pokemons);
     }
 
     #endregion
