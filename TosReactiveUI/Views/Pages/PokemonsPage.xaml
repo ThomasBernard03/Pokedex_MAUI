@@ -9,11 +9,20 @@
              Title="PokemonsPage">
     <Grid
         BackgroundColor="{StaticResource Primary}"
-        RowDefinitions="20, *, 20"
+        RowDefinitions="20, Auto, *, 20"
         ColumnDefinitions="20, *, 20">
+        <StackLayout Grid.Row="1" Grid.Column="1">
+            <SearchBar
+                Text="{Binding SearchBarText}"/>
+
+            <Picker
+                SelectedItem="{Binding SelectedType}"
+                ItemsSource="{Binding Types}"/>
+
+        </StackLayout>
         <CollectionView
             ItemsSource="{Binding Pokemons}"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1"
             BackgroundColor="{StaticResource Light}">
             <CollectionView.ItemsLayout>
@@ -44,7 +53,7 @@
                                     <StackLayout>
                                         <Frame
                                             WidthRequest="70"
-                                            Margin="5"
+                                            Margin="0, 0, 5, 0"
                                             HasShadow="False"
                                             Padding="5"
                                             BackgroundColor="{Binding ., Converter={StaticResource TypeToBackgroundColorValueConverter}}">

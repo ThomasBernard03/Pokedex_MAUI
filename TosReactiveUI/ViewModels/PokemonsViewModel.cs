@@ -19,8 +19,31 @@ public class PokemonsViewModel : BaseViewModel
     {
         _pokemonService = pokemonService;
 
+        var searchFilter = this.WhenAnyValue(viewModel => viewModel.SearchBarText)
+            .Select(searchBarText =>
+            {
+                if (!string.IsNullOrEmpty(searchBarText))
+                    return new Func<IPokemonEntity, bool>(pokemon => pokemon.Name?.Contains(searchBarText) ?? false);
+                else
+                    return new Func<IPokemonEntity, bool>(pokemon => true);
+            });
+
+        var typeFilter = this.WhenAnyValue(viewModel => viewModel.SelectedType)
+            .Select(selectedType =>
+            {
+                if (!string.IsNullOrEmpty(selectedType) && SelectedType != "Any")
+                    return new Func<IPokemonEntity, bool>(pokemon => pokemon.Types?.Contains(selectedType) ?? false);
+                else
+                    return new Func<IPokemonEntity, bool>(pokemon => true);
+            });
+
+        Types = new ObservableCollection<string>(new List<string>() { "Any" });
+
         _pokemonsCache
             .Connect()
+            .Filter(searchFilter) // Apply the search bar filter
+            .Filter(typeFilter) // Apply the type filter
+            .SortBy(p => p.Id) // Sort all pokemons by Id
             .Bind(out _pokemons)
             .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe();
@@ -34,7 +57,7 @@ public class PokemonsViewModel : BaseViewModel
 
         var pokemons = await _pokemonService.GetPokemonsAsync();
 
-        Types = pokemons.SelectMany(p => p.Types).Distinct();
+        Types.Add(pokemons.SelectMany(p => p.Types).Distinct());
         _pokemonsCache.AddOrUpdate(pokemons);
 
         //var x = JsonConvert.SerializeObject(pokemons);
@@ -51,13 +74,35 @@ public class PokemonsViewModel : BaseViewModel
     public ReadOnlyObservableCollection<IPokemonEntity> Pokemons => _pokemons;
     #endregion
 
+    #region SearchBarText
+
+    private string _searchBarText;
+    public string SearchBarText
+    {
+        get => _searchBarText;
+        set => this.RaiseAndSetIfChanged(ref _searchBarText, value);
+    }
+
+    #endregion
+
     #region Types
 
-    private IEnumerable<string> _types;
-    public IEnumerable<string> Types
+    private ObservableCollection<string> _types;
+    public ObservableCollection<string> Types
     {
         get => _types;
         set => this.RaiseAndSetIfChanged(ref _types, value);
+    }
+
+    #endregion
+
+    #region SelectedType
+
+    private string _selectedType;
+    public string SelectedType
+    {
+        get => _selectedType;
+        set => this.RaiseAndSetIfChanged(ref _selectedType, value);
     }
 
     #endregion
