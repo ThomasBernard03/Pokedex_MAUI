@@ -15,26 +15,48 @@
             ItemsSource="{Binding Pokemons}"
             Grid.Row="1"
             Grid.Column="1"
-            BackgroundColor="{StaticResource White}">
+            BackgroundColor="{StaticResource Light}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Span="3" Orientation="Vertical"/>
 
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="ModelInterfaces:IPokemonEntity">
-                    <Grid RowDefinitions="100, Auto, Auto">
+                    <Grid RowDefinitions="100, Auto, Auto, 100">
                         <Image
                             Source="{Binding FrontSprite}"/>
                         <Label
-                            TextColor="Black"
+                            TextColor="{StaticResource Grey}"
                             Grid.Row="1"
                             Text="{Binding Id}"/>
                         <Label
                             TextColor="Black"
                             FontAttributes="Bold"
-                            FontSize="17"
+                            FontSize="20"
                             Grid.Row="2"
                             Text="{Binding Name}"/>
+                        <CollectionView Grid.Row="3" ItemsSource="{Binding Types}">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Horizontal"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+                                    <StackLayout>
+                                        <Frame
+                                            WidthRequest="70"
+                                            Margin="5"
+                                            HasShadow="False"
+                                            Padding="5"
+                                            BackgroundColor="{Binding ., Converter={StaticResource TypeToBackgroundColorValueConverter}}">
+                                            <Label
+                                                HorizontalTextAlignment="Center"
+                                                HorizontalOptions="Center" Text="{Binding .}"/>
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

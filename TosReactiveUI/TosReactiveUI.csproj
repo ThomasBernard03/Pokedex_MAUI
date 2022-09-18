@@ -63,6 +63,7 @@
 	  <None Remove="ReactiveUI.Maui" />
 	  <None Remove="Commons\" />
 	  <None Remove="Models\Entities\" />
+	  <None Remove="Commons\Converters\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Views\" />
@@ -76,6 +77,7 @@
 	  <Folder Include="Models\DTOs\" />
 	  <Folder Include="Commons\" />
 	  <Folder Include="Models\Entities\" />
+	  <Folder Include="Commons\Converters\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Update="Views\Pages\PokemonsPage.xaml">

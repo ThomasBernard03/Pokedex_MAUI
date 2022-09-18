@@ -22,7 +22,7 @@ public static class MauiProgram
                     containerRegistry.RegisterNavigation();
                     containerRegistry.RegisterHelpers();
                 })
-                .OnAppStart(navigationService => navigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(PokemonsPage)}")))
+                .OnAppStart(navigationService => navigationService.NavigateAsync(nameof(PokemonsPage))))
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
