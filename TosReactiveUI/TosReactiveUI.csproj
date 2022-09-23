@@ -64,6 +64,7 @@
 	  <None Remove="Commons\" />
 	  <None Remove="Models\Entities\" />
 	  <None Remove="Commons\Converters\" />
+	  <None Remove="Resources\Raw\pokemons.json" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Views\" />
@@ -91,5 +92,8 @@
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	  <PackageReference Include="ThomasBernard.CsharpTools" Version="1.4.1" />
 	  <PackageReference Include="ReactiveUI.Maui" Version="18.3.1" />
+	</ItemGroup>
+	<ItemGroup>
+	  <MauiAsset Remove="Resources\Raw\pokemons.json" />
 	</ItemGroup>
 </Project>

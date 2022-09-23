@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Newtonsoft.Json;
 using TosReactiveUI.Models.Entities;
 using TosReactiveUI.Models.Interfaces;
@@ -14,16 +15,12 @@ public class JsonFilePokemonService : IPokemonService
 
     public async Task<IEnumerable<IPokemonEntity>> GetPokemonsAsync()
     {
-        var path = @"/Users/thomasbernard/Desktop/TosReactiveUI/TosReactiveUI/Resources/pokemons.json";
-        var pokemonsJson = System.IO.File.ReadAllText(path);
 
-        if (!string.IsNullOrEmpty(pokemonsJson))
-        {
-            var pokemons = JsonConvert.DeserializeObject<List<PokemonEntity>>(pokemonsJson);
-            return pokemons;
-        }
+        using var stream = await FileSystem.OpenAppPackageFileAsync("pokemons.json");
+        using var reader = new StreamReader(stream);
 
-        return null;
+        var pokemons = JsonConvert.DeserializeObject<List<PokemonEntity>>(reader.ReadToEnd());
+        return pokemons;
     }
 }
 
