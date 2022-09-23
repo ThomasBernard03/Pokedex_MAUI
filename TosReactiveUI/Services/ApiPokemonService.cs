@@ -1,5 +1,5 @@
 ﻿using System;
-using CsharpTools.Services.Interfaces;
+using Simple.Http;
 using TosReactiveUI.Models.DTOs;
 using TosReactiveUI.Models.Interfaces;
 using TosReactiveUI.Services.Interfaces;
@@ -22,7 +22,7 @@ public class ApiPokemonService : IPokemonService
         for (int i = 1; i <= 898; i++)
         {
             var pokemonHttpResult = await _httpService.SendHttpRequest<PokemonDtoDown>($"https://pokeapi.co/api/v2/pokemon-form/{i}", HttpMethod.Get);
-            pokemonsDto.Add(pokemonHttpResult?.Content);
+            pokemonsDto.Add(pokemonHttpResult?.Result);
         }
 
         return pokemonsDto;
