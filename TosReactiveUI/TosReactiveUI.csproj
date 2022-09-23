@@ -64,7 +64,7 @@
 	  <None Remove="Commons\" />
 	  <None Remove="Models\Entities\" />
 	  <None Remove="Commons\Converters\" />
-	  <None Remove="Resources\Raw\pokemons.json" />
+	  <None Remove="Simple.Http" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Views\" />
@@ -90,10 +90,7 @@
 	  <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.273-pre" />
 	  <PackageReference Include="Sharpnado.TaskMonitor" Version="1.0.2" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-	  <PackageReference Include="ThomasBernard.CsharpTools" Version="1.4.1" />
 	  <PackageReference Include="ReactiveUI.Maui" Version="18.3.1" />
-	</ItemGroup>
-	<ItemGroup>
-	  <MauiAsset Remove="Resources\Raw\pokemons.json" />
+	  <PackageReference Include="Simple.Http" Version="1.0.4" />
 	</ItemGroup>
 </Project>

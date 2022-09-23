@@ -15,12 +15,18 @@ public class JsonFilePokemonService : IPokemonService
 
     public async Task<IEnumerable<IPokemonEntity>> GetPokemonsAsync()
     {
+        try
+        {
+            using var stream = await FileSystem.OpenAppPackageFileAsync("pokemons.json");
+            using var reader = new StreamReader(stream);
 
-        using var stream = await FileSystem.OpenAppPackageFileAsync("pokemons.json");
-        using var reader = new StreamReader(stream);
-
-        var pokemons = JsonConvert.DeserializeObject<List<PokemonEntity>>(reader.ReadToEnd());
-        return pokemons;
+            var pokemons = JsonConvert.DeserializeObject<List<PokemonEntity>>(reader.ReadToEnd());
+            return pokemons;
+        }
+        catch(Exception ex)
+        {
+            return null;
+        }
     }
 }
 
