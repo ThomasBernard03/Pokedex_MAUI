@@ -46,7 +46,7 @@ public class PokemonsViewModel : BaseViewModel
             .SortBy(p => p.Id) // Sort all pokemons by Id
             .Bind(out _pokemons) // Bind on our private prop
             .ObserveOn(RxApp.MainThreadScheduler) // Force the execution on the main thread
-            .Subscribe(); // Subscribe to updates
+            .Subscribe(x => NumberOfPokemons = _pokemons.Count); // Subscribe to updates
     }
 
     #region Life cycle
@@ -101,6 +101,17 @@ public class PokemonsViewModel : BaseViewModel
     {
         get => _selectedType;
         set => this.RaiseAndSetIfChanged(ref _selectedType, value);
+    }
+
+    #endregion
+
+    #region NumberOfPokemons
+
+    private int _numberOfPokemons;
+    public int NumberOfPokemons
+    {
+        get => _numberOfPokemons;
+        private set => this.RaiseAndSetIfChanged(ref _numberOfPokemons, value);
     }
 
     #endregion

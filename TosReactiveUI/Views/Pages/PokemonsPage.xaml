@@ -13,9 +13,10 @@
         ColumnDefinitions="10, *, 10"
         BackgroundColor="{StaticResource Red100}">
         <Grid
+            RowSpacing="10"
             Grid.Row="1"
             Grid.Column="1"
-            RowDefinitions="*, 2*, *"
+            RowDefinitions="*, Auto, 2*, *"
             ColumnDefinitions="20, *, 20"
             BackgroundColor="{StaticResource Red200}">
 
@@ -31,9 +32,24 @@
             </Grid>
 
             <Frame
+                HasShadow="False"
+                Padding="0"
+                Grid.Row="1"
+                Grid.Column="1"
+                CornerRadius="10"
+                BackgroundColor="{StaticResource Light}">
+                <StackLayout>
+                    <Entry Text="{Binding SearchBarText}"/>
+                    <Picker
+                        SelectedItem="{Binding SelectedType}"
+                        ItemsSource="{Binding Types}"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame
                 CornerRadius="10"
                 HasShadow="False"
-                Grid.Row="1"
+                Grid.Row="2"
                 Grid.Column="1"
                 BackgroundColor="{StaticResource Light}">
 
@@ -87,7 +103,7 @@
 
             </Frame>
 
-            <StackLayout Grid.Row="2" Orientation="Horizontal" Grid.Column="1">
+            <StackLayout Grid.Row="3" Orientation="Horizontal" Grid.Column="1">
                 <Ellipse
                     Margin="10"
                     HorizontalOptions="Start"
@@ -107,7 +123,7 @@
                         VerticalOptions="Center"
                         FontAttributes="Bold"
                         TextColor="{StaticResource DarkGreen}"
-                        Text="3 results"/>
+                        Text="{Binding NumberOfPokemons, StringFormat='{0} results'}"/>
 
                 </Frame>
             </StackLayout>
