@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModels="clr-namespace:TosReactiveUI.ViewModels"
+             xmlns:ModelInterfaces="clr-namespace:TosReactiveUI.Models.Interfaces"
+             x:Class="TosReactiveUI.Views.Pages.PokemonsPage"
+             x:DataType="ViewModels:PokemonsViewModel"
+             BackgroundColor="{StaticResource Primary}"
+             Title="PokemonsPage">
+
+    <Grid
+        RowDefinitions="10, *, 10"
+        ColumnDefinitions="10, *, 10"
+        BackgroundColor="{StaticResource Red100}">
+        <Grid
+            RowSpacing="10"
+            Grid.Row="1"
+            Grid.Column="1"
+            RowDefinitions="*, Auto, 2*, *"
+            ColumnDefinitions="20, *, 20"
+            BackgroundColor="{StaticResource Red200}">
+
+            <Grid Grid.Column="1">
+                <Ellipse
+                    Margin="10"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    Fill="{StaticResource Blue}"/>
+
+            </Grid>
+
+            <Frame
+                HasShadow="False"
+                Padding="0"
+                Grid.Row="1"
+                Grid.Column="1"
+                CornerRadius="10"
+                BackgroundColor="{StaticResource Light}">
+                <StackLayout>
+                    <Entry Text="{Binding SearchBarText}"/>
+                    <Picker
+                        SelectedItem="{Binding SelectedType}"
+                        ItemsSource="{Binding Types}"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame
+                CornerRadius="10"
+                HasShadow="False"
+                Grid.Row="2"
+                Grid.Column="1"
+                BackgroundColor="{StaticResource Light}">
+
+                <CollectionView
+                    ItemsSource="{Binding Pokemons}"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource Light}">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="ModelInterfaces:IPokemonEntity">
+                            <Grid RowDefinitions="100, Auto, Auto, 100">
+                                <Image
+                                    Source="{Binding FrontSprite}"/>
+                                <Label
+                                    TextColor="{StaticResource Grey}"
+                                    Grid.Row="1"
+                                    Text="{Binding Id}"/>
+                                <Label
+                                    TextColor="Black"
+                                    FontAttributes="Bold"
+                                    FontSize="20"
+                                    Grid.Row="2"
+                                    Text="{Binding Name}"/>
+                                <CollectionView Grid.Row="3" ItemsSource="{Binding Types}">
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Horizontal"/>
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="x:String">
+                                            <StackLayout>
+                                                <Frame
+                                                    WidthRequest="70"
+                                                    Margin="0, 0, 5, 0"
+                                                    HasShadow="False"
+                                                    Padding="5"
+                                                    BackgroundColor="{Binding ., Converter={StaticResource TypeToBackgroundColorValueConverter}}">
+                                                    <Label
+                                                        HorizontalTextAlignment="Center"
+                                                        HorizontalOptions="Center" Text="{Binding .}"/>
+                                                </Frame>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Frame>
+
+            <StackLayout Grid.Row="3" Orientation="Horizontal" Grid.Column="1">
+                <Ellipse
+                    Margin="10"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    WidthRequest="70"
+                    HeightRequest="70"
+                    Fill="{StaticResource Black}"/>
+
+                <Frame
+                    HasShadow="False"
+                    CornerRadius="10"
+                    WidthRequest="200"
+                    HeightRequest="70"
+                    BackgroundColor="{StaticResource Green}">
+                    <Label
+                        VerticalTextAlignment="Center"
+                        VerticalOptions="Center"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource DarkGreen}"
+                        Text="{Binding NumberOfPokemons, StringFormat='{0} results'}"/>
+
+                </Frame>
+            </StackLayout>
+
+           
+
+        </Grid>
+
+    </Grid>
+</ContentPage>
