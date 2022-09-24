@@ -6,7 +6,7 @@
 
 ## Introduction 
 
-Dans ce Tos nous allons voir comment débuter avec ReactiveUI et en particulier les DynamicList. Je vous conseille de cloner l'application et de tester la recherche et le filtre de type afin de savoir ce que nous allons essayer de réaliser. Vous pouvez aussi vous servir de ce repository pour voir quelles sont les bonnes pratiques de développement en MAUI.
+Dans ce Tos nous allons voir comment débuter avec ReactiveUI et en particulier les DynamicList. Je vous conseille de cloner l'application et de tester la recherche et le filtre de type afin de savoir ce que nous allons essayer de réaliser. Vous pouvez aussi vous servir de ce repository pour voir quelles sont les bonnes pratiques de développement en MAUI (MVVM, IOC...).
 
 Les dynamic lists permettent de gérer des gros volumes de données très facilement, on peut ajouter des filtres, du tri et cela en étant optimisé.
 
@@ -37,7 +37,7 @@ private readonly ReadOnlyObservableCollection<IPokemonEntity> _pokemons;
 public ReadOnlyObservableCollection<IPokemonEntity> Pokemons => _pokemons;
 ```
   
-Un source cache utilisent des index, il est donc important que notre entité possède un Id. Notre ReadOnlyObservableCollection public renvoi la valeur de notre propriété privée.
+Un source cache utilise des index, il est donc important que notre entité possède un Id. Notre ReadOnlyObservableCollection public renvoi la valeur de notre propriété privée.
   
 ## Ajout des pokemons 
   
@@ -53,9 +53,9 @@ Il faut ensuite spécifier les connexions entre les différentes listes :
   
   ```C#
 _pokemonsCache
-  .Connect()
-  .Bind(out _pokemons) // Bind on our private prop
-  .Subscribe(); // Subscribe to updates
+    .Connect()
+    .Bind(out _pokemons) // Bind on our private prop
+    .Subscribe(); // Subscribe to updates
 ```
 
  Ce code spécifie que l'on "Connecte" le source cache à notre liste privée, on s'abonne aux différentes modifications grâce au subscribe. C'est à dire que lorsque l'on ajoute, supprime ou modifie des données dans le source cache cela provoquera une mise à jour dans notre liste privée.
@@ -105,11 +105,11 @@ _pokemonsCache
   .Subscribe(); // Subscribe to updates
 ```
               
-J'ajoute donc mon filtre dans le process de Connect. J'en profite par ailleur pour trier mes pokemons par leurs Id.
+J'ajoute donc mon filtre dans le process de Connect. J'en profite par ailleurs pour trier mes pokemons par leurs Id.
               
 ## Conclusion
               
-Et voila nous avons très simplement ajouté une barre de recherche dans notre application, dans le repository vous trouverez aussi le code pour trier à l'aide d'un picker. Si vous avez la moindre question, remarque ou amélioration à proposer, n'hésitez pas.
+Et voila nous avons très simplement ajouté une barre de recherche dans notre application, dans le repository vous trouverez aussi le code pour trier à l'aide d'un picker. Si vous avez la moindre question, remarque ou amélioration à proposer, n'hésitez pas. Vous pouvez aller plus loin avec Reactive UI (Car les dynamic lists ne sont qu'une partie des fonctionnalitées ajoutées) en allant sur leur documentation officielle : https://www.reactiveui.net/.
     
     
   ![Screen Recording 2022-09-23 at 22 39 45](https://user-images.githubusercontent.com/67638928/192053178-d91ac173-bc98-4af8-995e-42fa6d6a72e8.gif)
